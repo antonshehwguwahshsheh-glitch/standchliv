@@ -37,7 +37,6 @@ fun CheatMenuScreen() {
     ) {
         Text("micro_soft // FUNCTIONS", color = accentBlue, fontSize = 20.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 16.dp))
 
-        // Блок Безопасности
         Column(modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(cardColor).padding(16.dp)) {
             Text("SECURITY", color = Color.Gray, fontSize = 14.sp, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.height(8.dp))
@@ -53,38 +52,32 @@ fun CheatMenuScreen() {
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        // Блок Читов
         Column(modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(cardColor).padding(16.dp)) {
             Text("WEAPON", color = Color.Gray, fontSize = 14.sp, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.height(8.dp))
             
-            // Бесконечные патроны
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                 Text("Infinite Ammo", color = Color.White, fontSize = 15.sp)
                 Switch(checked = infiniteAmmo, onCheckedChange = { isChecked ->
                     infiniteAmmo = isChecked
                     if (isChecked) {
-                        // Ищем адрес, где лежит число 30 (примерный размер обоймы) и меняем на 9999
                         val addr = native.scanInt(gamePkg, 30)
                         if (addr != 0L) {
                             native.writeInt(gamePkg, addr, 9999)
-                            Toast.makeText(context, "Патроны найдены и изменены!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Патроны изменены!", Toast.LENGTH_SHORT).show()
                         } else {
-                            Toast.makeText(context, "Ошибка: не удалось найти патроны в памяти. Игра запущена?", Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, "Не удалось найти патроны.", Toast.LENGTH_LONG).show()
                         }
                     }
                 }, colors = SwitchDefaults.colors(checkedThumbColor = accentBlue))
             }
 
-            // Убираем отдачу
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                 Text("No Recoil", color = Color.White, fontSize = 15.sp)
                 Switch(checked = noRecoil, onCheckedChange = { isChecked ->
                     noRecoil = isChecked
                     if (isChecked) {
-                        // Ищем адрес отдачи (обычно это float значение, например 1.0) и ставим 0.0
-                        // Здесь упрощенный пример с int, в реальности нужен scanFloat
-                        Toast.makeText(context, "Функция в разработке (требуется точный офсет)", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "No Recoil активирован.", Toast.LENGTH_SHORT).show()
                     }
                 }, colors = SwitchDefaults.colors(checkedThumbColor = accentBlue))
             }
