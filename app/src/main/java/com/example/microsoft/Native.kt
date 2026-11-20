@@ -1,11 +1,9 @@
-#include <jni.h>
-#include <sys/ptrace.h>
-#include <sys/wait.h>
-#include <unistd.h>
-#include <dirent.h>
-#include <cstring>
-#include <cstdio>
-#include <string>
-#include <vector>
+package com.example.microsoft
 
-// ... и дальше весь остальной код ...
+class Native {
+    companion object { init { System.loadLibrary("microsoft") } }
+    external fun writeInt(pkg: String, addr: Long, v: Int): Boolean
+    external fun writeFloat(pkg: String, addr: Long, v: Float): Boolean
+    external fun setAntiBan(pkg: String, enable: Boolean): Boolean
+    external fun scanInt(pkg: String, target: Int): Long
+}
