@@ -17,17 +17,14 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
+    # Используем официальный экшен Gradle для генерации обертки
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v3
+      with:
+        gradle-version: 8.2
 
-    - name: Download Wrapper
-      run: |
-        wget -q https://raw.githubusercontent.com/gradle/gradle/v8.2.0/gradlew
-        wget -q https://raw.githubusercontent.com/gradle/gradle/v8.2.0/gradlew.bat
-        mkdir -p gradle/wrapper
-        wget -q https://raw.githubusercontent.com/gradle/gradle/v8.2.0/gradle/wrapper/gradle-wrapper.jar
-        wget -q https://raw.githubusercontent.com/gradle/gradle/v8.2.0/gradle/wrapper/gradle-wrapper.properties
-        chmod +x gradlew
+    - name: Generate Wrapper
+      run: gradle wrapper
 
     - name: Build with Gradle
       run: ./gradlew assembleDebug
